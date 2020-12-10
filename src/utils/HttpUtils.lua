@@ -10,6 +10,17 @@ local ltn12 = require("ltn12")
 
 httpUtils = {}
 
+function http.put(u)
+    local t = {
+    }
+    local r, c, h = http.request {
+        url = u,
+        sink = ltn12.sink.table(t),
+        method = "PUT",
+    }
+    return r, c, h, table.concat(t)
+end
+
 function http.delete(u)
     local t = {
     }
@@ -71,7 +82,13 @@ function httpUtils.wb_deleteUrl(url)
     end
 end
 
-
+function httpUtils.wb_putUrl(url)
+    r, c, h, body = http.put(url)
+    if body ~= nil then
+        return body
+    end
+    return body
+end
 
 return httpUtils
 
