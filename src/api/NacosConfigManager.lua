@@ -78,4 +78,37 @@ function NacosConfigManager.pushConfig(nacosDomain, tenant, dataId, group, conte
 
 end
 
+-- 删除配置
+function NacosConfigManager.deleteConfig(nacosDomain, tenant, dataId, group)
+    if nacosDomain == nil then
+        error("nacos domain is not null")
+    end
+
+    if dataId == nil then
+        error("data id not null")
+
+    end
+
+    if group == nil then
+        error("group not null")
+    end
+    if tenant == nil then
+        tenant = ''
+    end
+
+    --http://localhost:8848/nacos/v1/cs/configs?tenant&dataId=nacos.example&group=DEFAULT_GROUP
+
+
+    url = nacosDomain .. configUrl .. "?" .. "dataId=" .. dataId .. "&group=" .. group .. "&tenant="
+            .. tenant
+
+    print("request url = " .. url)
+    local var = httpUtils.wb_deleteUrl(url)
+    if var == 'true' then
+        return true
+    end
+    return false
+
+end
+
 return NacosConfigManager

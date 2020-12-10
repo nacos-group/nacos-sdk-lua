@@ -41,7 +41,6 @@ function http.post(u)
     return r, c, h, table.concat(t)
 end
 
--- 发送http.get请求，返回响应结果
 function httpUtils.wb_getUrl(url)
     r, c, h, body = http.get(url)
     if c ~= 200 then
@@ -54,6 +53,16 @@ end
 
 function httpUtils.wb_postUrl(url)
     r, c, h, body = http.post(url)
+    if c ~= 200 then
+        print("ErrorCode: " .. c .. "ErrorMessage:" .. body)
+        return
+    else
+        return body
+    end
+end
+
+function httpUtils.wb_deleteUrl(url)
+    r, c, h, body = http.delete(url)
     if c ~= 200 then
         print("ErrorCode: " .. c .. "ErrorMessage:" .. body)
         return
