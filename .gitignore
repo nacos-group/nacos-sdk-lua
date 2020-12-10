@@ -150,4 +150,7 @@ luac.out
 untitled.iml
 .idea
 
-# End of https://www.toptal.com/developers/gitignore/api/lua,jetbrains
+# End of https://www.toptal.com/developers/gitignore/api/lua,jetbrains/luarocks
+/lua
+/lua_modules
+/.luarocks

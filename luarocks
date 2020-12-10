@@ -1,0 +1,3 @@
+#!/bin/sh
+
+LUAROCKS_SYSCONFDIR='/usr/local/etc/luarocks' exec '/Users/huifer/dev_tools/lua-5.1.5/src/lua' -e 'package.path="/usr/local/share/lua/5.1/?.lua;./?.lua;/usr/local/share/lua/5.1/?/init.lua;/usr/local/lib/lua/5.1/?.lua;/usr/local/lib/lua/5.1/?/init.lua;/Users/huifer/.luarocks/share/lua/5.1/?.lua;/Users/huifer/.luarocks/share/lua/5.1/?/init.lua";package.cpath="./?.so;/usr/local/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/loadall.so;/Users/huifer/.luarocks/lib/lua/5.1/?.so"' '/usr/local/bin/luarocks' --project-tree /Users/huifer/lua-projcet/nacos-sdk-lua/lua_modules "$@"
