@@ -5,6 +5,7 @@
 ---
 
 local httpUtils = require("utils.HttpUtils")
+local url = require("socket.url")
 
 NacosConfigManager = {}
 -- nacos open api
@@ -63,7 +64,7 @@ function NacosConfigManager.pushConfig(nacosDomain, tenant, dataId, group, conte
     end
 
     url = nacosDomain .. configUrl .. "?" .. "dataId=" .. dataId .. "&group=" .. group .. "&tenant="
-            .. tenant .. "&content=" .. content .. "&type=" .. type
+            .. tenant .. "&content=" .. url.escape(content) .. "&type=" .. type
 
     print("request url = " .. url)
 
@@ -89,8 +90,8 @@ function NacosConfigManager.deleteConfig(nacosDomain, tenant, dataId, group)
 
     end
 
-    if group == nil then
-        error("group not null")
+    if group == nil or group == "" then
+        group = "DEFAULT_GROUP"
     end
     if tenant == nil then
         tenant = ''
