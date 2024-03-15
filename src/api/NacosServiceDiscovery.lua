@@ -196,12 +196,14 @@ end
 --发送实例心跳
 --serviceName	字符串	是	服务名
 --groupName	字符串	否	分组名
+--namespaceId   字符串	是	命名空间ID
 --ephemeral	boolean	否	是否临时实例
 --beat	JSON格式字符串	是	实例心跳内容
 function NacosServiceDiscovery.sendBeat(
         domain,
         serviceName,
         groupName,
+        namespaceId,
         ephemeral,
         beat
 )
@@ -215,6 +217,9 @@ function NacosServiceDiscovery.sendBeat(
     if beat == nil then
         error("beat is not null")
     end
+    if namespaceId == nil then
+        error("namespaceId is not null")
+    end
 
     if groupName == nil then
         groupName = 'DEFAULT_GROUP'
@@ -222,7 +227,7 @@ function NacosServiceDiscovery.sendBeat(
     if ephemeral == nil then
         ephemeral = false
     end
-    url = domain .. instanceBeat .. '?serviceName=' .. tostring(serviceName) .. '&groupName=' .. tostring(groupName) .. '&ephemeral=' .. tostring(ephemeral) .. '&beat=' .. tostring(beat)
+    url = domain .. instanceBeat .. '?serviceName=' .. tostring(serviceName) .. '&groupName=' .. tostring(groupName) .. '&namespaceId=' .. tostring(namespaceId) .. '&ephemeral=' .. tostring(ephemeral) .. '&beat=' .. tostring(beat)
     print("request url " .. url)
 
     local resp = httpUtils.wb_putUrl(url)
