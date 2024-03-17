@@ -51,7 +51,7 @@ function NacosService.createService(
         selector = ''
     end
 
-    url = domain .. serviceUrl .. "?"
+    local url = domain .. serviceUrl .. "?"
             .. 'serviceName=' .. tostring(serviceName)
             .. '&groupName=' .. tostring(groupName)
             .. '&namespaceId=' .. tostring(namespaceId)
@@ -91,7 +91,7 @@ function NacosService.DeleteService(
         namespaceId = 'public'
     end
 
-    url = domain .. serviceUrl .. "?"
+    local url = domain .. serviceUrl .. "?"
             .. 'serviceName=' .. tostring(serviceName)
             .. '&groupName=' .. tostring(groupName)
             .. '&namespaceId=' .. tostring(namespaceId)
@@ -129,7 +129,7 @@ function NacosService.ServiceDetail(
         namespaceId = 'public'
     end
 
-    url = domain .. serviceUrl .. "?"
+    local url = domain .. serviceUrl .. "?"
             .. 'serviceName=' .. tostring(serviceName)
             .. '&groupName=' .. tostring(groupName)
             .. '&namespaceId=' .. tostring(namespaceId)
@@ -182,7 +182,7 @@ function NacosService.UpdateService(
         selector = ''
     end
 
-    url = domain .. serviceUrl .. "?"
+    local url = domain .. serviceUrl .. "?"
             .. 'serviceName=' .. tostring(serviceName)
             .. '&groupName=' .. tostring(groupName)
             .. '&namespaceId=' .. tostring(namespaceId)
@@ -225,7 +225,7 @@ function NacosService.QueryServiceList(
         namespaceId = 'public'
     end
 
-    url = domain .. serviceList .. "?"
+    local url = domain .. serviceList .. "?"
             .. 'pageNo=' .. tostring(pageNo)
             .. '&pageSize=' .. tostring(pageSize)
             .. '&groupName=' .. tostring(groupName)
@@ -247,7 +247,7 @@ function NacosService.SystemSwitch(
         error("nacos domain is not null")
     end
 
-    url = domain .. operatorSwitches
+    local url = domain .. operatorSwitches
     print("request url " .. url)
 
     local var = httpUtils.wb_getUrl(url)
@@ -281,7 +281,7 @@ function NacosService.UpdateSystemSwitch(
         error("debug is not null")
     end
 
-    url = domain .. operatorSwitches .. '?'
+    local url = domain .. operatorSwitches .. '?'
             .. 'entry=' .. tostring(entry)
             .. '&value=' .. tostring(value)
             .. '&debug=' .. tostring(debug)
@@ -298,7 +298,7 @@ function NacosService.Metrics(domain)
         error("nacos domain is not null")
     end
 
-    url = domain .. operatorMetrics
+    local url = domain .. operatorMetrics
     print("request url " .. url)
     return httpUtils.wb_getUrl(url)
 
@@ -316,7 +316,7 @@ function NacosService.operatorServers(domain, healthy)
     if healthy == nil then
         healthy = false
     end
-    url = domain .. operatorServers
+    local url = domain .. operatorServers
 
     print("request url " .. url)
     return httpUtils.wb_getUrl(url)
@@ -329,7 +329,7 @@ function NacosService.Leader(domain)
     if domain == nil then
         error("nacos domain is not null")
     end
-    url = domain .. leaderUrl
+    local url = domain .. leaderUrl
     print("request url " .. url)
     return httpUtils.wb_getUrl(url)
 
@@ -381,7 +381,7 @@ function NacosService.UpdateHealth(
         clusterName = ''
     end
 
-    url = domain .. updateHealthUrl .. "?"
+    local url = domain .. updateHealthUrl .. "?"
             .. 'namespaceId=' .. tostring(namespaceId)
             .. '&serviceName=' .. tostring(serviceName)
             .. '&groupName=' .. tostring(groupName)

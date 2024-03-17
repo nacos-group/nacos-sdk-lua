@@ -53,7 +53,7 @@ function http.post(u)
 end
 
 function httpUtils.wb_getUrl(url)
-    r, c, h, body = http.get(url)
+    local r, c, h, body = http.get(url)
     if c ~= 200 then
         print("ErrorCode: " .. c .. "ErrorMessage:" .. body)
         return
@@ -63,7 +63,7 @@ function httpUtils.wb_getUrl(url)
 end
 
 function httpUtils.wb_postUrl(url)
-    r, c, h, body = http.post(url)
+    local r, c, h, body = http.post(url)
     if c ~= 200 then
         print("ErrorCode: " .. c .. "ErrorMessage:" .. body)
         return
@@ -73,7 +73,7 @@ function httpUtils.wb_postUrl(url)
 end
 
 function httpUtils.wb_deleteUrl(url)
-    r, c, h, body = http.delete(url)
+    local r, c, h, body = http.delete(url)
     if c ~= 200 then
         print("ErrorCode: " .. c .. "ErrorMessage:" .. body)
         return
@@ -83,7 +83,7 @@ function httpUtils.wb_deleteUrl(url)
 end
 
 function httpUtils.wb_putUrl(url)
-    r, c, h, body = http.put(url)
+    local r, c, h, body = http.put(url)
     if body ~= nil then
         return body
     end

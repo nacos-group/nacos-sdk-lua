@@ -83,7 +83,7 @@ function NacosServiceDiscovery.registerInstance(
 
     end
 
-    url = domain .. instance .. '?ip=' .. tostring(ip) .. '&port=' .. tostring(port) .. '&namespaceId=' ..
+    local url = domain .. instance .. '?ip=' .. tostring(ip) .. '&port=' .. tostring(port) .. '&namespaceId=' ..
             tostring(namespaceId) .. '&weight=' .. tostring(weight) .. '&enabled=' .. tostring(enabled) .. '&healthy=' .. tostring(healthy) .. '&clusterName=' ..
             tostring(clusterName) .. '&serviceName=' .. tostring(serviceName) .. '&groupName=' .. tostring(groupName) .. '&ephemeral=' .. tostring(ephemeral) .. '&metadata=' .. tostring(metadata)
 
@@ -124,7 +124,7 @@ function NacosServiceDiscovery.instanceList(
         healthyOnly = false
     end
 
-    url = domain .. instanceList .. '?serviceName=' .. tostring(serviceName) .. '&groupName=' .. tostring(groupName) .. '&namespaceId=' .. tostring(namespaceId) ..
+    local url = domain .. instanceList .. '?serviceName=' .. tostring(serviceName) .. '&groupName=' .. tostring(groupName) .. '&namespaceId=' .. tostring(namespaceId) ..
             '&clusters=' .. tostring(clusters) .. '&healthyOnly=' .. tostring(healthyOnly)
 
     print("request url " .. url)
@@ -183,7 +183,7 @@ function NacosServiceDiscovery.queryDetail(
         ephemeral = false
     end
 
-    url = domain .. instance .. "?serviceName=" .. tostring(serviceName) .. '&groupName=' .. tostring(groupName) .. "&ip="
+    local url = domain .. instance .. "?serviceName=" .. tostring(serviceName) .. '&groupName=' .. tostring(groupName) .. "&ip="
             .. tostring(ip) .. '&port=' .. tostring(port) .. '&namespaceId=' .. tostring(namespaceId) .. '&cluster=' ..
             tostring(cluster) .. '&healthyOnly=' .. tostring(healthyOnly) .. '&ephemeral=' .. tostring(ephemeral)
 
@@ -203,7 +203,6 @@ function NacosServiceDiscovery.sendBeat(
         domain,
         serviceName,
         groupName,
-        namespaceId,
         ephemeral,
         beat
 )
@@ -217,9 +216,6 @@ function NacosServiceDiscovery.sendBeat(
     if beat == nil then
         error("beat is not null")
     end
-    if namespaceId == nil then
-        error("namespaceId is not null")
-    end
 
     if groupName == nil then
         groupName = 'DEFAULT_GROUP'
@@ -227,11 +223,52 @@ function NacosServiceDiscovery.sendBeat(
     if ephemeral == nil then
         ephemeral = false
     end
-    url = domain .. instanceBeat .. '?serviceName=' .. tostring(serviceName) .. '&groupName=' .. tostring(groupName) .. '&namespaceId=' .. tostring(namespaceId) .. '&ephemeral=' .. tostring(ephemeral) .. '&beat=' .. tostring(beat)
+    local url = domain .. instanceBeat .. '?serviceName=' .. tostring(serviceName) .. '&groupName=' .. tostring(groupName) .. '&namespaceId=' .. tostring(namespaceId) .. '&ephemeral=' .. tostring(ephemeral) .. '&beat=' .. tostring(beat)
     print("request url " .. url)
 
     local resp = httpUtils.wb_putUrl(url)
     return resp
+end
+
+--发送实例心跳-带命名空间
+--serviceName	字符串	是	服务名
+--groupName	字符串	否	分组名
+--namespaceId   字符串	是	命名空间ID
+--ephemeral	boolean	否	是否临时实例
+--beat	JSON格式字符串	是	实例心跳内容
+function NacosServiceDiscovery.sendBeatWithNamespace(
+    domain,
+    serviceName,
+    groupName,
+    namespaceId,
+    ephemeral,
+    beat
+)
+
+if domain == nil then
+    error("nacos domain is not null")
+end
+if serviceName == nil then
+    error("serviceName is not null")
+end
+if beat == nil then
+    error("beat is not null")
+end
+if namespaceId == nil then
+    error("namespaceId is not null")
+end
+
+if groupName == nil then
+    groupName = 'DEFAULT_GROUP'
+end
+if ephemeral == nil then
+    ephemeral = false
+end
+local url = domain .. instanceBeat .. '?serviceName=' .. tostring(serviceName) .. '&groupName=' .. tostring(groupName) .. '&namespaceId=' .. tostring(namespaceId) .. '&ephemeral=' .. tostring(ephemeral) .. '&beat=' .. tostring(beat)
+print("request url " .. url)
+
+local resp = httpUtils.wb_putUrl(url)
+return resp
 end
 
 return NacosServiceDiscovery

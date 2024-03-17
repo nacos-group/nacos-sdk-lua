@@ -27,7 +27,7 @@ function NacosConfigManager.getConfig(nacosDomain, tenant, dataId, group)
         tenant = ''
     end
 
-    url = nacosDomain .. configUrl .. "?" .. "dataId=" .. dataId .. "&group=" .. group .. "&tenant=" .. tenant
+    local url = nacosDomain .. configUrl .. "?" .. "dataId=" .. dataId .. "&group=" .. group .. "&tenant=" .. tenant
     print("request url = " .. url)
 
     local body = httpUtils.wb_getUrl(url)
@@ -62,7 +62,7 @@ function NacosConfigManager.pushConfig(nacosDomain, tenant, dataId, group, conte
         error("content is not null")
     end
 
-    url = nacosDomain .. configUrl .. "?" .. "dataId=" .. dataId .. "&group=" .. group .. "&tenant="
+    local url = nacosDomain .. configUrl .. "?" .. "dataId=" .. dataId .. "&group=" .. group .. "&tenant="
             .. tenant .. "&content=" .. content .. "&type=" .. type
 
     print("request url = " .. url)
@@ -99,7 +99,7 @@ function NacosConfigManager.deleteConfig(nacosDomain, tenant, dataId, group)
     --http://localhost:8848/nacos/v1/cs/configs?tenant&dataId=nacos.example&group=DEFAULT_GROUP
 
 
-    url = nacosDomain .. configUrl .. "?" .. "dataId=" .. dataId .. "&group=" .. group .. "&tenant="
+    local url = nacosDomain .. configUrl .. "?" .. "dataId=" .. dataId .. "&group=" .. group .. "&tenant="
             .. tenant
 
     print("request url = " .. url)

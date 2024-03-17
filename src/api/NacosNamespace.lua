@@ -16,7 +16,7 @@ function QueryNamespaceList(domain)
     if domain == nil then
         error("nacos domain is not null")
     end
-    url = domain .. namespaces
+    local url = domain .. namespaces
 
     print("request url " .. url)
 
@@ -43,7 +43,7 @@ function CreateNamespace(
         error("namespaceName is not null")
     end
 
-    url = domain .. namespaces .. '?'
+    local url = domain .. namespaces .. '?'
             .. 'customNamespaceId=' .. tostring(customNamespaceId)
             .. '&namespaceName=' .. tostring(namespaceName)
             .. '&namespaceDesc=' .. tostring(namespaceDesc)
@@ -77,7 +77,7 @@ function UpdateNamespace(
         error("nanamespaceId is not null")
     end
 
-    url = domain .. namespaces .. '?'
+    local url = domain .. namespaces .. '?'
             .. 'namespaceId=' .. tostring(namespaceId)
             .. '&namespaceName=' .. tostring(namespaceName)
             .. '&namespaceDesc=' .. tostring(namespaceDesc)
@@ -96,7 +96,7 @@ function DeleteNamespace(domain, namespaceId)
         error("namespaceId is not null")
     end
 
-    url = domain .. namespaces .. '?'
+    local url = domain .. namespaces .. '?'
             .. 'namespaceId=' .. tostring(namespaceId)
 
     print("request url " .. url)
