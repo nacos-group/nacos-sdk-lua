@@ -2,6 +2,9 @@
 
 Nacos open api lua 语言的实现
 
+如果你正在使用 Nacos 1.x 请使用nacos1.x分支的程序代码，如果你正在使用 Nacos 2.x 请使用  main 分支的程序代码。
+
+
 ## install 
 
 ```

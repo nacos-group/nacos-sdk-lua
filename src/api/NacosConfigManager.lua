@@ -5,6 +5,7 @@
 ---
 
 local httpUtils = require("utils.HttpUtils")
+local url = require("socket.url")
 
 NacosConfigManager = {}
 -- nacos open api
@@ -27,10 +28,10 @@ function NacosConfigManager.getConfig(nacosDomain, tenant, dataId, group)
         tenant = ''
     end
 
-    local url = nacosDomain .. configUrl .. "?" .. "dataId=" .. dataId .. "&group=" .. group .. "&tenant=" .. tenant
-    print("request url = " .. url)
+    local sendUrl = nacosDomain .. configUrl .. "?" .. "dataId=" .. dataId .. "&group=" .. group .. "&tenant=" .. tenant
+    print("request url = " .. sendUrl)
 
-    local body = httpUtils.wb_getUrl(url)
+    local body = httpUtils.wb_getUrl(sendUrl)
     if body ~= nil then
         return body
     end
@@ -62,12 +63,12 @@ function NacosConfigManager.pushConfig(nacosDomain, tenant, dataId, group, conte
         error("content is not null")
     end
 
-    local url = nacosDomain .. configUrl .. "?" .. "dataId=" .. dataId .. "&group=" .. group .. "&tenant="
-            .. tenant .. "&content=" .. content .. "&type=" .. type
+    local sendUrl = nacosDomain .. configUrl .. "?" .. "dataId=" .. dataId .. "&group=" .. group .. "&tenant="
+            .. tenant .. "&content=" .. url.escape(content) .. "&type=" .. type
 
-    print("request url = " .. url)
+    print("request url = " .. sendUrl)
 
-    local body = httpUtils.wb_postUrl(url)
+    local body = httpUtils.wb_postUrl(sendUrl)
 
     if body == 'true' then
         return true
@@ -89,8 +90,8 @@ function NacosConfigManager.deleteConfig(nacosDomain, tenant, dataId, group)
 
     end
 
-    if group == nil then
-        error("group not null")
+    if group == nil or group == "" then
+        group = "DEFAULT_GROUP"
     end
     if tenant == nil then
         tenant = ''
@@ -98,12 +99,11 @@ function NacosConfigManager.deleteConfig(nacosDomain, tenant, dataId, group)
 
     --http://localhost:8848/nacos/v1/cs/configs?tenant&dataId=nacos.example&group=DEFAULT_GROUP
 
-
-    local url = nacosDomain .. configUrl .. "?" .. "dataId=" .. dataId .. "&group=" .. group .. "&tenant="
+    local sendUrl = nacosDomain .. configUrl .. "?" .. "dataId=" .. dataId .. "&group=" .. group .. "&tenant="
             .. tenant
 
-    print("request url = " .. url)
-    local var = httpUtils.wb_deleteUrl(url)
+    print("request url = " .. sendUrl)
+    local var = httpUtils.wb_deleteUrl(sendUrl)
     if var == 'true' then
         return true
     end
