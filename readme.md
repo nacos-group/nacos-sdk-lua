@@ -56,6 +56,10 @@ print(detail)
 local s = NacosServiceDiscovery.sendBeat(domain, 'nacos.test.3', nil, nil, '%7b%22cluster%22%3a%22c1%22%2c%22ip%22%3a%22127.0.0.1%22%2c%22metadata%22%3a%7b%7d%2c%22port%22%3a8080%2c%22scheduled%22%3atrue%2c%22serviceName%22%3a%22jinhan0Fx4s.173TL.net%22%2c%22weight%22%3a1%7d')
 print(s)
 
+-- 发送实例心跳-带上namespaceId
+local sn = NacosServiceDiscovery.sendBeatWithNamespace(domain, 'nacos.test.3', nil, nil, '%7B%22cluster%22%3A%22c1%22%2C%22ip%22%3A%22127.0.0.1%22%2C%22metadata%22%3A%7B%7D%2C%22port%22%3A8080%2C%22scheduled%22%3Atrue%2C%22serviceName%22%3A%22jinhan0Fx4s.173TL.net%22%2C%22weight%22%3A1%2C%22namespaceId%22%3A%22test%22%7D')
+print(sn)
+
 --创建服务
 local createService = NacosService.createService(
         domain,
