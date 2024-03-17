@@ -222,7 +222,7 @@ function NacosServiceDiscovery.sendBeat(
     if ephemeral == nil then
         ephemeral = false
     end
-    local url = domain .. instanceBeat .. '?serviceName=' .. tostring(serviceName) .. '&groupName=' .. tostring(groupName) .. '&namespaceId=' .. tostring(namespaceId) .. '&ephemeral=' .. tostring(ephemeral) .. '&beat=' .. tostring(beat)
+    local url = domain .. instanceBeat .. '?serviceName=' .. tostring(serviceName) .. '&groupName=' .. tostring(groupName) .. '&ephemeral=' .. tostring(ephemeral) .. '&beat=' .. tostring(beat)
     print("request url " .. url)
 
     local resp = httpUtils.wb_putUrl(url)
