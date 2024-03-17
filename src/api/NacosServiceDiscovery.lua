@@ -196,7 +196,6 @@ end
 --发送实例心跳
 --serviceName	字符串	是	服务名
 --groupName	字符串	否	分组名
---namespaceId   字符串	是	命名空间ID
 --ephemeral	boolean	否	是否临时实例
 --beat	JSON格式字符串	是	实例心跳内容
 function NacosServiceDiscovery.sendBeat(
